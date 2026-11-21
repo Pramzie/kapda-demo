@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BlockMart — Blocky Merch, Printed Live</title>
+<meta name="description" content="Pixel-style merch printed on demand by our very own block printing machine.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap">
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#8fd0ff;color:#111;font-family:'VT323','Courier New',monospace;font-size:22px}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:4px solid #ff9b00;outline-offset:2px}
+.px{font-family:'Press Start 2P','Courier New',monospace;line-height:1.5}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:12px 20px;border:4px solid #111;cursor:pointer;font:12px 'Press Start 2P','Courier New',monospace;color:#111;background:#c6c6c6;box-shadow:inset -4px -4px 0 #6b6b6b,inset 4px 4px 0 #f2f2f2}
+.btn:hover{background:#d8d8d8}.btn:active{box-shadow:inset 4px 4px 0 #6b6b6b}
+.btn.go{background:#5cb338;box-shadow:inset -4px -4px 0 #2f7a1a,inset 4px 4px 0 #9be07a}.btn.go:hover{background:#6fc84a}
+.btn.sm{min-height:40px;padding:6px 12px;font-size:10px}
+.dirt{background:repeating-conic-gradient(#0000001f 0 25%,#0000 0 50%) 0 0/24px 24px,#7a5230}
+.card{background:#fff;border:4px solid #111;box-shadow:8px 8px 0 #111}
+.bar{padding:10px 24px;text-align:center;color:#fff;border-bottom:4px solid #111}
+header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:4px solid #111}
+.hd{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;padding-top:14px;padding-bottom:14px}
+.logo{display:flex;align-items:center;gap:14px;font-size:18px}
+.cube{width:44px;height:44px;border:4px solid #111;background:linear-gradient(#5cb338 0 35%,#7a5230 35%)}
+nav{display:flex;gap:26px;flex-wrap:wrap;font-size:11px}nav a:hover{color:#2f7a1a}
+#hero{position:relative;background:#8fd0ff;border-bottom:4px solid #111;overflow:hidden}
+.ht{position:relative;z-index:2;padding-top:56px;max-width:600px}
+.ht h1{margin:20px 0;font-size:36px;line-height:1.3;text-shadow:4px 4px 0 #5cb338}
+.ht p{font-size:28px;line-height:1.15;margin:0 0 28px;max-width:480px}
+.badge{display:inline-block;background:#111;color:#fff;padding:8px 12px;font-size:11px}
+.spacer{aspect-ratio:2/1;margin-top:-4%}
+#cv{position:absolute;left:0;bottom:0;width:100%;image-rendering:pixelated}
+#stat{position:absolute;z-index:2;right:24px;top:24px;background:#111;color:#fff;padding:10px 14px;font-size:10px;border:4px solid #fff}
+section.s{padding:64px 0;border-bottom:4px solid #111}
+h2.px{margin:0 0 32px;font-size:24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px}
+.cat{padding:28px 20px;display:block}.cat b{display:block;font:14px 'Press Start 2P',monospace;margin-bottom:8px}
+.chips{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px}
+.chip[aria-pressed=true]{background:#5cb338;box-shadow:inset -4px -4px 0 #2f7a1a,inset 4px 4px 0 #9be07a}
+.tile{position:relative;border-bottom:4px solid #111;padding:12px}
+.tile canvas{display:block;width:100%;image-rendering:pixelated}
+.tag{position:absolute;top:12px;left:12px;background:#f2c14e;border:4px solid #111;padding:6px 8px;font-size:9px}
+.info{padding:20px;display:flex;flex-direction:column;gap:10px}
+.info h3{margin:0;font-size:13px}.info p{margin:0;font-size:22px;line-height:1.1;color:#333}
+.buy{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:6px}.buy .px{font-size:14px}
+#products{background:#8fd0ff}#custom{background:#fff}
+.cust{display:flex;gap:40px;flex-wrap:wrap;align-items:center}
+.prev{flex:1 1 320px;max-width:440px;padding:16px;background:#7fd3e8}.prev canvas{display:block;width:100%;image-rendering:pixelated}
+.ctl{flex:1 1 360px}.lab{font-size:11px;margin:20px 0 10px}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.sw{width:48px;height:48px;border:4px solid #111;cursor:pointer;box-shadow:inset -4px -4px 0 #0003}
+.sw[aria-pressed=true]{outline:4px solid #ff9b00;outline-offset:2px}
+.deal{background:#2b2b2b;color:#fff;padding:44px;display:flex;justify-content:space-between;align-items:center;gap:28px;flex-wrap:wrap;box-shadow:12px 12px 0 #111}
+.deal h2{color:#fff;margin:12px 0;font-size:26px;line-height:1.4}
+footer{color:#fff}.ft{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;padding-top:44px;padding-bottom:44px}
+footer input{flex:1 1 160px;min-height:48px;padding:0 12px;font:22px 'VT323',monospace;border:4px solid #111;background:#fff;color:#111}
+#live{position:fixed;left:16px;bottom:16px;width:260px;border:4px solid #111;background:#8fd0ff;box-shadow:6px 6px 0 #111;z-index:30;display:none}
+#live.on{display:block}#live canvas{display:block;width:100%;image-rendering:pixelated}
+.lf{padding:8px;display:flex;gap:8px;align-items:center;justify-content:space-between;background:#fff;border-top:4px solid #111;font-size:8px}
+#ov{position:fixed;inset:0;background:#0008;z-index:40;opacity:0;visibility:hidden;transition:.2s}
+#drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:#fff;border-left:4px solid #111;z-index:50;display:flex;flex-direction:column;transform:translateX(105%);visibility:hidden;transition:transform .25s,visibility .25s}
+.open #drawer{transform:none;visibility:visible}.open #ov{opacity:1;visibility:visible}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:16px;border-bottom:4px solid #111}.dh h2{margin:0;font-size:16px}
+#items{flex:1;overflow:auto;padding:16px}
+.ci{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:4px dotted #111}.ci .px{font-size:11px}
+.qt{display:flex;align-items:center;gap:8px}.empty{font-size:24px}
+.df{padding:16px;border-top:4px solid #111}.tot{display:flex;justify-content:space-between;margin-bottom:14px;font-size:14px}
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,200%);background:#111;color:#fff;border:4px solid #5cb338;padding:14px 18px;z-index:60;font-size:11px;max-width:92vw;text-align:center;transition:transform .25s}
+#toast.on{transform:translate(-50%,0)}
+@media(max-width:700px){.ht h1{font-size:24px}#stat{display:none}.deal{padding:24px}}
+</style>
+</head>
+<body>
+<div id="toast" class="px" role="status" aria-live="polite"></div>
+<div id="ov"></div>
+<aside id="drawer" aria-label="Shopping cart">
+<div class="dh"><h2 class="px">YOUR CART</h2><button class="btn sm" id="close" aria-label="Close cart">X</button></div>
+<div id="items"></div>
+<div class="df"><div class="tot px"><span>TOTAL</span><span id="total">$0.00</span></div><button class="btn go" id="checkout" style="width:100%">CHECKOUT</button></div>
+</aside>
+<aside id="live" aria-label="Live printer">
+<canvas id="mini" width="320" height="160"></canvas>
+<div class="lf px"><span id="stat2">STANDBY</span><button class="btn sm" id="pp">PAUSE</button></div>
+</aside>
+
+<div class="dirt bar px" style="font-size:10px">FREE SHIPPING OVER $[AMOUNT] · EVERY TEE PRINTED LIVE</div>
+<header>
+<div class="wrap hd">
+<a href="#top" class="logo px" aria-label="BlockMart home"><span class="cube"></span>BLOCKMART</a>
+<nav class="px"><a href="#products">SHOP</a><a href="#custom">DESIGN</a><a href="#deals">DEALS</a><a href="#about">ABOUT</a></nav>
+<button class="btn" id="cartbtn" aria-label="Open cart">CART (<span id="cnt">0</span>)</button>
+</div>
+</header>
+
+<section id="hero">
+<div class="wrap ht">
+<span class="badge px">SEASON 04 · PRINTED LIVE</span>
+<h1 class="px">BUILD YOUR OWN STYLE</h1>
+<p>Blocky gear for builders and crafters. Watch our machine print your tee in real time.</p>
+<div style="display:flex;gap:16px;flex-wrap:wrap"><a href="#products" class="btn go">SHOP NOW</a><a href="#custom" class="btn">PRINT YOUR OWN</a></div>
+</div>
+<div class="spacer"></div>
+<div id="stat" class="px">STANDBY</div>
+<canvas id="cv" width="320" height="160" role="img" aria-label="A pixel-art printing machine printing shirts on a conveyor belt"></canvas>
+</section>
+
+<section class="s" style="background:#fff"><div class="wrap">
+<h2 class="px">PICK A BIOME</h2>
+<div class="grid">
+<a href="#products" class="card cat" style="background:#5cb338" data-go="APPAREL"><b>APPAREL</b>Tees and hoodies</a>
+<a href="#products" class="card cat" style="background:#f2c14e" data-go="HOME"><b>HOME</b>Mugs and more</a>
+<a href="#products" class="card cat" style="background:#7fd3e8" data-go="PLUSH"><b>PLUSH</b>Cuddly cubes</a>
+<a href="#products" class="card cat" style="background:#ff9b6b" data-go="GEAR"><b>GEAR</b>Keychains and charms</a>
+</div></div></section>
+
+<section class="s" id="products"><div class="wrap">
+<h2 class="px">FEATURED LOOT</h2>
+<div class="chips" id="chips"></div>
+<div class="grid" id="grid"></div>
+</div></section>
+
+<section class="s" id="custom"><div class="wrap cust">
+<div class="card prev"><canvas id="pv" width="48" height="40" role="img" aria-label="Preview of your custom tee"></canvas></div>
+<div class="ctl">
+<h2 class="px" style="margin-bottom:8px">DESIGN YOUR TEE</h2>
+<p style="margin:0;font-size:24px">Pick a colour and a print. The machine will make yours next.</p>
+<div class="lab px">1 · SHIRT COLOUR</div><div class="row" id="sw"></div>
+<div class="lab px">2 · PRINT</div><div class="row" id="ds"></div>
+<div style="margin-top:28px"><button class="btn go" id="printit">PRINT IT · ADD TO CART</button></div>
+<p id="qinfo" style="font-size:24px;margin:14px 0 0"></p>
+</div></div></section>
+
+<section class="s" id="deals" style="background:#fff"><div class="wrap">
+<div class="deal"><div><div class="px" style="color:#ffb347;font-size:12px">LIMITED TIME · LAVA SALE</div><h2 class="px">[DISCOUNT] OFF EVERYTHING</h2><div style="font-size:26px;color:#e8e8e8">Use code BLOCKUP at checkout.</div></div>
+<a href="#products" class="btn go">CLAIM DEAL</a></div></div></section>
+
+<section class="s" id="about"><div class="wrap grid">
+<div class="card" style="padding:24px"><div class="px" style="font-size:13px;margin-bottom:12px">FAST SHIPPING</div>Ships in [DAYS] days.</div>
+<div class="card" style="padding:24px"><div class="px" style="font-size:13px;margin-bottom:12px">EASY RETURNS</div>[DAYS]-day returns.</div>
+<div class="card" style="padding:24px"><div class="px" style="font-size:13px;margin-bottom:12px">SECURE PAY</div>Cards, UPI and wallets.</div>
+<div class="card" style="padding:24px"><div class="px" style="font-size:13px;margin-bottom:12px">24/7 SUPPORT</div>Real builders, always on.</div>
+</div></section>
+
+<footer class="dirt">
+<div style="height:24px;background:#5cb338;border-bottom:4px solid #111"></div>
+<div class="wrap ft">
+<div style="flex:1 1 240px"><div class="px" style="font-size:16px;margin-bottom:14px">BLOCKMART</div>Blocky merch for builders everywhere.</div>
+<div><div class="px" style="font-size:12px;margin-bottom:8px">SHOP</div><a href="#products">All items</a><br><a href="#custom">Design a tee</a></div>
+<div style="flex:1 1 260px"><div class="px" style="font-size:12px;margin-bottom:12px">JOIN THE SERVER</div>
+<form id="nl" style="display:flex;gap:8px;flex-wrap:wrap"><label for="em" style="position:absolute;left:-9999px">Email</label><input id="em" type="email" required placeholder="you@email.com"><button class="btn go">JOIN</button></form></div>
+</div>
+<div style="text-align:center;padding:14px;font-size:20px;background:#0006">© BlockMart. Fan-made style concept, not affiliated with any game studio.</div>
+</footer>
+
+<script>
+(()=>{
+const $=s=>document.querySelector(s),INK='#111',KEY='blockmart-cart';
+const money=n=>'$'+n.toFixed(2);
+
+// product er byapare ekhane
+const PRODUCTS=[
+{id:'t1',n:'HEART TEE',cat:'APPAREL',price:24,d:'Soft cotton, printed on demand.',bg:'#7fd3e8',type:'tee',col:'#ffffff',des:0,tag:'NEW'},
+{id:'t2',n:'TREE TEE',cat:'APPAREL',price:24,d:'Plant a forest on your chest.',bg:'#f2c14e',type:'tee',col:'#c9c9c9',des:3},
+{id:'h1',n:'GEM HOODIE',cat:'APPAREL',price:48,d:'Heavyweight fleece, shiny print.',bg:'#ff9b6b',type:'hood',col:'#5cb338',des:2},
+{id:'h2',n:'BLOCK HOODIE',cat:'APPAREL',price:52,d:'Grass on top, dirt below.',bg:'#7fd3e8',type:'hood',col:'#ffffff',des:6,tag:'BEST SELLER'},
+{id:'m1',n:'CUBE MUG',cat:'HOME',price:14,d:'Square handle, 12oz ceramic.',bg:'#5cb338',type:'mug',col:'#ff9b6b'},
+{id:'m2',n:'COAL MUG',cat:'HOME',price:14,d:'For dark roast and long nights.',bg:'#f2c14e',type:'mug',col:'#555555'},
+{id:'p1',n:'BLOCK PLUSH',cat:'PLUSH',price:28,d:'Soft cube buddy, 25cm.',bg:'#ff9b6b',type:'plush',col:'#5cb338'},
+{id:'k1',n:'PICKAXE KEYCHAIN',cat:'GEAR',price:9,d:'Enamel-style charm.',bg:'#7fd3e8',type:'key'}
+];
+const CUSTOM_PRICE=26;
+const COLS=['#ffffff','#5cb338','#7fd3e8','#f2c14e','#ff9b6b','#c9c9c9'];
+const DES=[
+{n:'HEART',c:'#e03131',r:['.xx.xx.','xxxxxxx','xxxxxxx','.xxxxx.','..xxx..','...x...','.......']},
+{n:'STAR',c:'#f2b705',r:['...x...','..xxx..','xxxxxxx','.xxxxx.','..x.x..','.x...x.','.......']},
+{n:'GEM',c:'#1fb5d4',r:['..xxx..','.xxxxx.','xxxxxxx','.xxxxx.','..xxx..','...x...','.......']},
+{n:'TREE',c:'#2f9e44',c2:'#7a5230',r:['..xxx..','.xxxxx.','xxxxxxx','.xxxxx.','xxxxxxx','...y...','...y...']},
+{n:'SMILE',c:'#111111',r:['.......','.x...x.','.x...x.','.......','x.....x','.xxxxx.','.......']},
+{n:'PICK',c:'#6b6b6b',c2:'#7a5230',r:['.xxxxx.','x..y..x','...y...','...y...','...y...','...y...','...y...']},
+{n:'BLOCK',c:'#5cb338',c2:'#7a5230',r:['xxxxxxx','xxxxxxx','yyyyyyy','yyyyyyy','yyyyyyy','yyyyyyy','yyyyyyy']}
+];
+
+//pixel sprites
+function ink(c,d,cx,y,n){for(let i=0;i<n&&i<49;i++){const ch=d.r[i/7|0][i%7];if(ch!=='.'){c.fillStyle=ch==='x'?d.c:d.c2;c.fillRect(cx-7+(i%7)*2,y+(i/7|0)*2,2,2)}}}
+function shirt(c,cx,col,o={}){
+const sl=o.hood?16:9;
+c.fillStyle=INK;c.fillRect(cx-13,95,26,28);c.fillRect(cx-19,95,7,sl+2);c.fillRect(cx+12,95,7,sl+2);
+if(o.hood)c.fillRect(cx-8,91,16,6);
+c.fillStyle=col;c.fillRect(cx-12,96,24,26);c.fillRect(cx-18,96,6,sl);c.fillRect(cx+12,96,6,sl);
+if(o.hood){c.fillRect(cx-7,92,14,5);c.fillStyle='#0003';c.fillRect(cx-7,96,14,1)}
+c.fillStyle='#0003';c.fillRect(cx-4,96,8,2);c.fillRect(cx-12,119,24,3);
+if(o.d)ink(c,o.d,cx,103,o.n);
+}
+function mug(c,col){c.fillStyle=INK;c.fillRect(8,6,24,28);c.fillRect(31,11,10,16);c.fillStyle=col;c.fillRect(9,7,22,26);c.fillRect(32,12,8,14);c.clearRect(34,15,4,8);c.fillStyle='#4a2c17';c.fillRect(9,7,22,5);c.fillStyle='#fff6';c.fillRect(12,16,3,13);c.fillStyle='#0003';c.fillRect(9,30,22,3)}
+function plush(c,col){c.fillStyle=INK;c.fillRect(10,6,28,28);c.fillStyle=col;c.fillRect(11,7,26,26);c.fillStyle='#0003';c.fillRect(11,29,26,4);c.fillStyle=INK;c.fillRect(17,15,4,5);c.fillRect(27,15,4,5);c.fillRect(20,25,8,2);c.fillRect(18,23,2,2);c.fillRect(28,23,2,2)}
+function key(c){c.fillStyle=INK;c.fillRect(17,1,14,12);c.fillStyle='#c6c6c6';c.fillRect(18,2,12,10);c.clearRect(21,5,6,4);c.fillStyle=INK;c.fillRect(22,13,3,5);c.fillRect(6,16,36,8);c.fillRect(21,24,6,15);c.fillStyle='#8a8a8a';c.fillRect(7,17,34,6);c.fillStyle='#6b6b6b';c.fillRect(7,17,5,6);c.fillRect(36,17,5,6);c.fillStyle='#7a5230';c.fillRect(22,24,4,14)}
+function sprite(c,p){c.clearRect(0,0,48,40);c.save();
+if(p.type==='mug')mug(c,p.col);else if(p.type==='plush')plush(c,p.col);else if(p.type==='key')key(c);
+else{c.translate(24,-88);shirt(c,0,p.col,{hood:p.type==='hood',d:DES[p.des],n:49})}c.restore()}
+
+//printing machine
+const cv=$('#cv'),g=cv.getContext('2d'),mg=$('#mini').getContext('2d');
+let shirts=[{x:250,col:COLS[2],des:0,p:1},{x:160,col:COLS[1],des:3,p:.3},{x:70,col:COLS[0],des:1,p:0}];
+let belt=0,t=0,cloud=0,q=[],heroVis=true,lt=0,lastTxt='';
+let paused=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const actOf=()=>shirts.find(s=>s.p<1&&s.x>=160);
+function step(f){
+t+=f;cloud+=.05*f;
+const a=actOf();
+if(a){a.x=160;a.p=Math.min(1,a.p+f/200)}else{const sp=.5*f;belt+=sp;shirts.forEach(s=>s.x+=sp)}
+shirts=shirts.filter(s=>s.x<350);
+const l=shirts[shirts.length-1];
+if(!l||l.x>58){const c=q.shift();shirts.push(c?{x:-32,col:c.col,des:c.des,p:0,mine:1}:{x:-32,col:COLS[Math.random()*COLS.length|0],des:Math.random()*DES.length|0,p:0})}
+}
+function draw(){
+const c=g;
+c.fillStyle='#8fd0ff';c.fillRect(0,0,320,160);
+c.fillStyle='#fff';
+[[30,20],[150,10],[250,32]].forEach(([x,y],i)=>{const cx=((x+cloud*(i+1))%380)-40;c.fillRect(cx,y,28,7);c.fillRect(cx+7,y-5,14,5);c.fillRect(cx+16,y+7,10,4)});
+c.fillStyle='#5cb338';c.fillRect(0,140,320,8);c.fillStyle='#7a5230';c.fillRect(0,148,320,12);
+c.fillStyle='#0002';for(let x=0;x<320;x+=8)c.fillRect(x,x%16?154:150,4,4);
+c.fillStyle=INK;c.fillRect(0,139,320,1);
+c.fillStyle='#444';[20,100,220,298].forEach(x=>c.fillRect(x,132,6,8));
+c.fillStyle=INK;c.fillRect(4,121,312,11);c.fillStyle='#3d3d3d';c.fillRect(6,123,308,7);
+c.fillStyle='#575757';for(let x=-(belt%12);x<320;x+=12)c.fillRect(x,125,6,3);
+const a=actOf();
+shirts.forEach(s=>shirt(c,s.x,s.col,{d:s.p>0?DES[s.des]:null,n:Math.floor(s.p*49)}));
+// machine frame
+[114,192].forEach(x=>{c.fillStyle=INK;c.fillRect(x,56,14,68);c.fillStyle='#c6c6c6';c.fillRect(x+2,58,10,64);c.fillStyle='#0002';c.fillRect(x+2,58,3,64);c.fillStyle='#fff6';c.fillRect(x+9,58,2,64)});
+c.fillStyle=INK;c.fillRect(106,46,108,20);c.fillStyle='#a8a8a8';c.fillRect(108,48,104,16);c.fillStyle='#0002';c.fillRect(108,58,104,6);
+c.fillStyle=INK;c.fillRect(150,51,20,8);c.fillStyle=a?(t%30<15?'#5cb338':'#2f7a1a'):'#e03131';c.fillRect(152,53,16,4);
+c.fillStyle='rgba(255,255,255,.75)';for(let i=0;i<3;i++){c.fillRect(124+i*34,42-((t*.3+i*9)%22),3,3)}
+// print head
+let px,py,tip='#aaa';
+if(a){const n=Math.floor(a.p*49);px=154+(n%7)*2;py=103+(n/7|0)*2;const d=DES[a.des];tip=(d.r[n/7|0][n%7]==='y'?d.c2:d.c)||'#aaa'}else{px=160+Math.sin(t/30)*22;py=84}
+c.fillStyle=INK;c.fillRect(128,py-14,64,6);c.fillStyle='#888';c.fillRect(128,py-13,64,4);
+c.fillStyle=INK;c.fillRect(px-6,py-14,12,12);c.fillStyle='#e8e8e8';c.fillRect(px-5,py-13,10,10);c.fillStyle=INK;c.fillRect(px-3,py-11,6,2);
+c.fillStyle=tip;c.fillRect(px-1,py-2,2,3);
+if(a){for(let i=0;i<3;i++){c.fillRect(px+(Math.random()*8-4|0),py+(Math.random()*4|0),1,1)}}
+// label
+const txt=a?`PRINTING: ${DES[a.des].n} TEE${a.mine?' (YOURS)':''}`:(paused?'PAUSED':'FEEDING BELT...');
+if(txt!==lastTxt){lastTxt=txt;$('#stat').textContent=txt;$('#stat2').textContent=txt.length>20?txt.slice(0,18)+'..':txt}
+}
+function loop(ts){
+const f=Math.min(3,(ts-lt)/16.67||1);lt=ts;
+if(!paused)step(f);
+draw();
+if(!heroVis)mg.drawImage(cv,0,0);
+requestAnimationFrame(loop);
+}
+new IntersectionObserver(e=>{heroVis=e[0].isIntersecting;$('#live').classList.toggle('on',!heroVis)}).observe($('#hero'));
+$('#pp').onclick=()=>{paused=!paused;$('#pp').textContent=paused?'PLAY':'PAUSE'};
+if(paused)$('#pp').textContent='PLAY';
+requestAnimationFrame(loop);
+
+//toast
+let tt;function toast(m){const e=$('#toast');e.textContent=m;e.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('on'),2600)}
+
+//cart
+let cart=[];try{cart=JSON.parse(localStorage.getItem(KEY))||[]}catch(e){}
+function cartUI(){
+const n=cart.reduce((a,b)=>a+b.q,0),tot=cart.reduce((a,b)=>a+b.q*b.price,0);
+$('#cnt').textContent=n;$('#total').textContent=money(tot);
+$('#items').innerHTML=cart.length?cart.map(i=>`<div class="ci"><div><div class="px">${i.name}</div><div>${money(i.price)} each</div></div><div class="qt"><button class="btn sm" data-q="${i.id}" data-d="-1" aria-label="Remove one ${i.name}">-</button><span class="px">${i.q}</span><button class="btn sm" data-q="${i.id}" data-d="1" aria-label="Add one ${i.name}">+</button></div></div>`).join(''):'<p class="empty">Your cart is empty. Go mine some loot!</p>';
+try{localStorage.setItem(KEY,JSON.stringify(cart))}catch(e){}
+}
+function add(id,name,price){const i=cart.find(x=>x.id===id);i?i.q++:cart.push({id,name,price,q:1});cartUI()}
+const openCart=o=>{document.body.classList.toggle('open',o)};
+$('#cartbtn').onclick=()=>openCart(true);$('#close').onclick=()=>openCart(false);$('#ov').onclick=()=>openCart(false);
+addEventListener('keydown',e=>{if(e.key==='Escape')openCart(false)});
+$('#checkout').onclick=()=>toast(cart.length?'Connect your payment provider here':'Add something first');
+
+//shop grid
+let filter='ALL';
+function chips(){$('#chips').innerHTML=['ALL','APPAREL','HOME','PLUSH','GEAR'].map(f=>`<button class="btn sm chip" data-f="${f}" aria-pressed="${f===filter}">${f}</button>`).join('')}
+function grid(){
+$('#grid').innerHTML=PRODUCTS.filter(p=>filter==='ALL'||p.cat===filter).map(p=>`<article class="card"><div class="tile" style="background:${p.bg}"><canvas width="48" height="40" data-id="${p.id}" aria-hidden="true"></canvas>${p.tag?`<span class="tag px">${p.tag}</span>`:''}</div><div class="info"><h3 class="px">${p.n}</h3><p>${p.d}</p><div class="buy"><span class="px">${money(p.price)}</span><button class="btn go sm" data-add="${p.id}" aria-label="Add ${p.n} to cart">ADD</button></div></div></article>`).join('');
+document.querySelectorAll('#grid canvas').forEach(k=>sprite(k.getContext('2d'),PRODUCTS.find(x=>x.id===k.dataset.id)));
+chips();
+}
+
+//tee designer
+let sc=1,sd=0;
+function designer(){
+$('#sw').innerHTML=COLS.map((c,i)=>`<button class="sw" data-c="${i}" style="background:${c}" aria-label="Shirt colour ${i+1}" aria-pressed="${i===sc}"></button>`).join('');
+$('#ds').innerHTML=DES.map((d,i)=>`<button class="btn sm chip" data-d2="${i}" aria-pressed="${i===sd}">${d.n}</button>`).join('');
+const c=$('#pv').getContext('2d');c.clearRect(0,0,48,40);c.save();c.translate(24,-88);shirt(c,0,COLS[sc],{d:DES[sd],n:49});c.restore();
+}
+$('#printit').onclick=()=>{
+q.push({col:COLS[sc],des:sd});
+add('c-'+sd+'-'+sc,`CUSTOM ${DES[sd].n} TEE`,CUSTOM_PRICE);
+$('#qinfo').textContent=`${q.length} custom tee${q.length>1?'s':''} waiting in the printer queue.`;
+toast('Your tee is next in the printer!');
+};
+
+//global clicks
+document.addEventListener('click',e=>{
+const b=e.target.closest('[data-add],[data-q],[data-f],[data-c],[data-d2],[data-go]');if(!b)return;
+const d=b.dataset;
+if(d.add){const p=PRODUCTS.find(x=>x.id===d.add);add(p.id,p.n,p.price);toast(p.n+' added to cart')}
+else if(d.q){const i=cart.find(x=>x.id===d.q);i.q+=+d.d;if(i.q<1)cart=cart.filter(x=>x!==i);cartUI()}
+else if(d.f){filter=d.f;grid()}
+else if(d.go){filter=d.go;grid()}
+else if(d.c!==undefined){sc=+d.c;designer()}
+else if(d.d2!==undefined){sd=+d.d2;designer()}
+});
+$('#nl').onsubmit=e=>{e.preventDefault();toast('Welcome to the server!');e.target.reset()};
+
+cartUI();grid();designer();
+})();
+</script>
+</body>
+</html>
